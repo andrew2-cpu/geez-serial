@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEEZ Serial Number Search System</title>
+<style>
+  :root {
+    --accent: #269a9e;
+    --black: #111111;
+    --gray: #8a8a8a;
+    --light: #f1f1ec;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #ffffff;
+    color: var(--black);
+    display: flex;
+    justify-content: center;
+  }
+  .app {
+    width: 100%;
+    max-width: 420px;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 28px 24px 32px;
+  }
+  .top {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    margin-bottom: 28px;
+  }
+  .back-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: var(--black);
+    cursor: pointer;
+    padding: 4px 10px 4px 0;
+    visibility: hidden;
+  }
+  .back-btn.show { visibility: visible; }
+  .brand {
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--black);
+    flex: 1;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .brand span { color: var(--accent); }
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: var(--gray);
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+  .steps {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 30px;
+  }
+  .step-dot {
+    height: 4px;
+    flex: 1;
+    border-radius: 2px;
+    background: var(--light);
+    transition: background .3s;
+  }
+  .step-dot.active { background: var(--accent); }
+  .step-label {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 16px 18px;
+    font-size: 17px;
+    border: 1.5px solid #dcdcd6;
+    border-radius: 14px;
+    background: #ffffff;
+    color: var(--black);
+    outline: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: border-color .2s;
+  }
+  input[type="text"]:focus { border-color: var(--accent); }
+  input::placeholder { text-transform: none; letter-spacing: 0; color: #b5b5b0; }
+  .hint {
+    font-size: 12.5px;
+    color: var(--gray);
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+  .spacer { flex: 1; min-height: 30px; }
+  .primary-btn {
+    width: 100%;
+    padding: 17px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background: var(--accent);
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: opacity .2s;
+  }
+  .primary-btn:disabled { opacity: .45; cursor: not-allowed; }
+  .primary-btn:active { opacity: .85; }
+  .screen { display: none; flex-direction: column; flex: 1; }
+  .screen.active { display: flex; }
+  /* Result screens */
+  .result-icon {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    margin: 60px auto 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .result-icon.ok { background: #2fac66; }
+  .result-icon.bad { background: #d9534f; }
+  .result-icon svg { width: 44px; height: 44px; }
+  .result-title { text-align: center; font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+  .result-text { text-align: center; font-size: 14px; color: var(--gray); line-height: 1.6; padding: 0 10px; }
+  .loader {
+    width: 44px; height: 44px;
+    border: 4px solid var(--light);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    margin: 90px auto 24px;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .checking-text { text-align: center; color: var(--gray); font-size: 14px; }
+  .error-msg {
+    display: none;
+    text-align: center;
+    color: #d9534f;
+    font-size: 13px;
+    margin-top: 14px;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <button class="back-btn" id="backBtn" onclick="goBack()" aria-label="Back">&#8592;</button>
+    <div class="brand">GEEZ <span>Serial Number Search System</span></div>
+    <div style="width:32px"></div>
+  </div>
+
+  <!-- Intro -->
+  <div class="screen active" id="screen-intro">
+    <h1>Verify Your GEEZ Product</h1>
+    <p class="subtitle">Check if your GEEZ billiard product is authentic in 3 simple steps. You will need the shaft number, the NFC number on the shaft bottom, and the box number.</p>
+    <div class="spacer"></div>
+    <button class="primary-btn" onclick="goTo(1)">Start Verification</button>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="screen" id="screen-1">
+    <div class="steps"><div class="step-dot active"></div><div class="step-dot"></div><div class="step-dot"></div></div>
+    <div class="step-label">Step 1 of 3</div>
+    <h1>Shaft Verification Number</h1>
+    <p class="subtitle">Enter the verification number printed on the shaft.</p>
+    <input type="text" id="input1" placeholder="Enter shaft number" autocomplete="off" autocapitalize="characters">
+    <div class="spacer"></div>
+    <button class="primary-btn" id="btn1" onclick="next(1)" disabled>Next</button>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="screen" id="screen-2">
+    <div class="steps"><div class="step-dot active"></div><div class="step-dot active"></div><div class="step-dot"></div></div>
+    <div class="step-label">Step 2 of 3</div>
+    <h1>Shaft Bottom NFC Number</h1>
+    <p class="subtitle">Enter the NFC number located at the bottom of the shaft.</p>
+    <input type="text" id="input2" placeholder="Enter NFC number" autocomplete="off" autocapitalize="characters">
+    <div class="spacer"></div>
+    <button class="primary-btn" id="btn2" onclick="next(2)" disabled>Next</button>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="screen" id="screen-3">
+    <div class="steps"><div class="step-dot active"></div><div class="step-dot active"></div><div class="step-dot active"></div></div>
+    <div class="step-label">Step 3 of 3</div>
+    <h1>Box Number</h1>
+    <p class="subtitle">Enter the number printed on the product box.</p>
+    <input type="text" id="input3" placeholder="Enter box number" autocomplete="off" autocapitalize="characters">
+    <div class="spacer"></div>
+    <button class="primary-btn" id="btn3" onclick="verify()" disabled>Verify</button>
+  </div>
+
+  <!-- Checking -->
+  <div class="screen" id="screen-checking">
+    <div class="loader"></div>
+    <p class="checking-text">Checking your numbers&hellip;</p>
+    <p class="error-msg" id="errorMsg">Connection error. Please try again.</p>
+    <div class="spacer"></div>
+    <button class="primary-btn" id="retryBtn" style="display:none" onclick="verify()">Try Again</button>
+  </div>
+
+  <!-- Success -->
+  <div class="screen" id="screen-success">
+    <div class="result-icon ok">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="result-title">Authentic Product</div>
+    <p class="result-text">All 3 numbers matched.<br>This is a genuine GEEZ product.<br>Thank you for choosing GEEZ.</p>
+    <div class="spacer"></div>
+    <button class="primary-btn" onclick="restart()">Done</button>
+  </div>
+
+  <!-- Fail -->
+  <div class="screen" id="screen-fail">
+    <div class="result-icon bad">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+    <div class="result-title">Not Verified</div>
+    <p class="result-text">The numbers did not match our records.<br>Please check the numbers and try again.<br>If it still fails, this may not be a genuine GEEZ product &mdash; contact us for help.</p>
+    <div class="spacer"></div>
+    <button class="primary-btn" onclick="restart()">Try Again</button>
+  </div>
+</div>
+
+<script>
+  // ====================================================================
+  // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BETWEEN THE QUOTES BELOW:
+  const API_URL = "https://script.google.com/macros/s/AKfycbydXc8oJ0Reb7EHuc3IU9ey21RURtda75KAOsco2IP3Tkams1W65dxTmcqRXvB-ZpRc9Q/exec;
+  // ====================================================================
+
+  let current = "intro";
+  const order = ["intro", "1", "2", "3"];
+
+  function show(id) {
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    document.getElementById("screen-" + id).classList.add("active");
+    current = id;
+    document.getElementById("backBtn").classList.toggle("show", ["1","2","3"].includes(id));
+    const input = document.querySelector("#screen-" + id + " input");
+    if (input) setTimeout(() => input.focus(), 100);
+  }
+
+  function goTo(step) { show(String(step)); }
+
+  function next(step) { show(String(step + 1)); }
+
+  function goBack() {
+    const i = order.indexOf(current);
+    if (i > 0) show(order[i - 1]);
+  }
+
+  function restart() {
+    ["input1","input2","input3"].forEach(id => document.getElementById(id).value = "");
+    [1,2,3].forEach(n => document.getElementById("btn" + n).disabled = true);
+    show("intro");
+  }
+
+  // Enable button only when input has text; Enter key moves forward
+  [1,2,3].forEach(n => {
+    const input = document.getElementById("input" + n);
+    const btn = document.getElementById("btn" + n);
+    input.addEventListener("input", () => { btn.disabled = input.value.trim() === ""; });
+    input.addEventListener("keydown", e => {
+      if (e.key === "Enter" && !btn.disabled) btn.click();
+    });
+  });
+
+  async function verify() {
+    show("checking");
+    document.getElementById("errorMsg").style.display = "none";
+    document.getElementById("retryBtn").style.display = "none";
+
+    const clean = v => v.trim().toUpperCase().replace(/\s+/g, "");
+    const s1 = clean(document.getElementById("input1").value);
+    const s2 = clean(document.getElementById("input2").value);
+    const s3 = clean(document.getElementById("input3").value);
+
+    if (API_URL.indexOf("PASTE_YOUR") === 0) {
+      alert("Setup not finished: paste your Apps Script URL into index.html (API_URL).");
+      show("3");
+      return;
+    }
+
+    try {
+      const url = API_URL + "?shaft=" + encodeURIComponent(s1)
+                          + "&nfc=" + encodeURIComponent(s2)
+                          + "&box=" + encodeURIComponent(s3);
+      const res = await fetch(url);
+      const data = await res.json();
+      show(data.valid === true ? "success" : "fail");
+    } catch (err) {
+      document.getElementById("errorMsg").style.display = "block";
+      document.getElementById("retryBtn").style.display = "block";
+    }
+  }
+</script>
+</body>
+</html>
