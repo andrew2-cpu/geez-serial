@@ -10,80 +10,143 @@
     --black: #111111;
     --gray: #8a8a8a;
     --light: #f1f1ec;
+    --border: #dcdcd6;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #ffffff;
+    background: linear-gradient(180deg, #269a9e 0%, #6fbcbf 28%, #ffffff 68%);
+    background-attachment: fixed;
     color: var(--black);
     display: flex;
     justify-content: center;
   }
   .app {
     width: 100%;
-    max-width: 420px;
+    max-width: 440px;
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 28px 24px 32px;
+    padding: 24px 18px 28px;
   }
+  /* Header */
   .top {
+    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    height: 32px;
-    margin-bottom: 28px;
+    margin-bottom: 22px;
   }
   .back-btn {
-    background: none;
+    position: absolute;
+    left: 0;
+    top: 4px;
+    background: rgba(255,255,255,.2);
     border: none;
-    font-size: 22px;
-    color: var(--black);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    font-size: 20px;
+    color: #ffffff;
     cursor: pointer;
-    padding: 4px 10px 4px 0;
     visibility: hidden;
   }
   .back-btn.show { visibility: visible; }
+  .logo-chip {
+    background: #1e1e1e;
+    border-radius: 16px;
+    padding: 12px 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.18);
+  }
+  .logo { height: 46px; display: block; }
   .brand {
     font-size: 13px;
-    letter-spacing: 2px;
+    letter-spacing: 2.5px;
     font-weight: 700;
-    color: var(--black);
-    flex: 1;
+    color: #ffffff;
     text-align: center;
     text-transform: uppercase;
   }
-  .brand span { color: var(--accent); }
+  .brand small {
+    display: block;
+    font-size: 10.5px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    color: rgba(255,255,255,.85);
+    margin-top: 4px;
+  }
+  /* White card holding all screens */
+  .card {
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.10);
+    padding: 28px 22px 26px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
   h1 {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 700;
     margin-bottom: 10px;
     line-height: 1.25;
+    text-align: center;
   }
   .subtitle {
     font-size: 14px;
     color: var(--gray);
-    margin-bottom: 30px;
-    line-height: 1.5;
+    margin-bottom: 28px;
+    line-height: 1.55;
+    text-align: center;
   }
-  .steps {
+  /* Numbered stepper: (1)---(2)---(3) */
+  .stepper {
     display: flex;
-    gap: 8px;
-    margin-bottom: 30px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
   }
-  .step-dot {
-    height: 4px;
-    flex: 1;
+  .dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    border: 2px solid var(--border);
+    color: #b5b5b0;
+    background: #ffffff;
+    flex-shrink: 0;
+  }
+  .dot.active {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #ffffff;
+    box-shadow: 0 0 0 5px rgba(38,154,158,.15);
+  }
+  .dot.done {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #ffffff;
+  }
+  .connector {
+    width: 44px;
+    height: 2.5px;
+    background: var(--border);
+    margin: 0 6px;
     border-radius: 2px;
-    background: var(--light);
-    transition: background .3s;
   }
-  .step-dot.active { background: var(--accent); }
+  .connector.done { background: var(--accent); }
   .step-label {
+    text-align: center;
     font-size: 12px;
     color: var(--accent);
-    font-weight: 600;
-    letter-spacing: 1px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     margin-bottom: 8px;
   }
@@ -91,24 +154,22 @@
     width: 100%;
     padding: 16px 18px;
     font-size: 17px;
-    border: 1.5px solid #dcdcd6;
+    border: 1.5px solid var(--border);
     border-radius: 14px;
     background: #ffffff;
     color: var(--black);
     outline: none;
     letter-spacing: 1px;
     text-transform: uppercase;
-    transition: border-color .2s;
+    text-align: center;
+    transition: border-color .2s, box-shadow .2s;
   }
-  input[type="text"]:focus { border-color: var(--accent); }
+  input[type="text"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(38,154,158,.12);
+  }
   input::placeholder { text-transform: none; letter-spacing: 0; color: #b5b5b0; }
-  .hint {
-    font-size: 12.5px;
-    color: var(--gray);
-    margin-top: 12px;
-    line-height: 1.5;
-  }
-  .spacer { flex: 1; min-height: 30px; }
+  .spacer { flex: 1; min-height: 26px; }
   .primary-btn {
     width: 100%;
     padding: 17px;
@@ -119,33 +180,58 @@
     border: none;
     border-radius: 999px;
     cursor: pointer;
-    transition: opacity .2s;
+    transition: opacity .2s, transform .1s;
   }
-  .primary-btn:disabled { opacity: .45; cursor: not-allowed; }
-  .primary-btn:active { opacity: .85; }
-  .screen { display: none; flex-direction: column; flex: 1; }
+  .primary-btn:disabled { opacity: .4; cursor: not-allowed; }
+  .primary-btn:not(:disabled):active { opacity: .85; transform: scale(.98); }
+  .screen { display: none; flex-direction: column; flex: 1; animation: fadeIn .25s ease; }
   .screen.active { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  /* Intro icons */
+  .intro-list { margin: 4px 0 10px; }
+  .intro-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 4px;
+    border-bottom: 1px solid #f2f2ee;
+    font-size: 14.5px;
+  }
+  .intro-item:last-child { border-bottom: none; }
+  .intro-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(38,154,158,.12);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 13.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
   /* Result screens */
   .result-icon {
     width: 96px;
     height: 96px;
     border-radius: 50%;
-    margin: 60px auto 28px;
+    margin: 40px auto 26px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .result-icon.ok { background: #2fac66; }
-  .result-icon.bad { background: #d9534f; }
+  .result-icon.ok { background: #2fac66; box-shadow: 0 0 0 12px rgba(47,172,102,.12); }
+  .result-icon.bad { background: #d9534f; box-shadow: 0 0 0 12px rgba(217,83,79,.12); }
   .result-icon svg { width: 44px; height: 44px; }
   .result-title { text-align: center; font-size: 24px; font-weight: 700; margin-bottom: 12px; }
-  .result-text { text-align: center; font-size: 14px; color: var(--gray); line-height: 1.6; padding: 0 10px; }
+  .result-text { text-align: center; font-size: 14px; color: var(--gray); line-height: 1.6; padding: 0 8px; }
   .loader {
     width: 44px; height: 44px;
     border: 4px solid var(--light);
     border-top-color: var(--accent);
     border-radius: 50%;
-    margin: 90px auto 24px;
+    margin: 80px auto 22px;
     animation: spin .8s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
@@ -162,155 +248,182 @@
 <body>
 <div class="app">
   <div class="top">
-    <button class="back-btn" id="backBtn" onclick="goBack()" aria-label="Back">&#8592;</button>
-    <div class="brand">GEEZ <span>Serial Number Search System</span></div>
-    <div style="width:32px"></div>
+    <button class="back-btn" id="backBtn" aria-label="Back">&#8592;</button>
+    <div class="logo-chip"><img class="logo" src="data:image/png;base64,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" alt="GEEZ logo"></div>
+    <div class="brand">GEEZ<small>Serial Number Search System</small></div>
   </div>
 
-  <!-- Intro -->
-  <div class="screen active" id="screen-intro">
-    <h1>Verify Your GEEZ Product</h1>
-    <p class="subtitle">Check if your GEEZ billiard product is authentic in 3 simple steps. You will need the shaft number, the NFC number on the shaft bottom, and the box number.</p>
-    <div class="spacer"></div>
-    <button class="primary-btn" onclick="goTo(1)">Start Verification</button>
-  </div>
-
-  <!-- Step 1 -->
-  <div class="screen" id="screen-1">
-    <div class="steps"><div class="step-dot active"></div><div class="step-dot"></div><div class="step-dot"></div></div>
-    <div class="step-label">Step 1 of 3</div>
-    <h1>Shaft Verification Number</h1>
-    <p class="subtitle">Enter the verification number printed on the shaft.</p>
-    <input type="text" id="input1" placeholder="Enter shaft number" autocomplete="off" autocapitalize="characters">
-    <div class="spacer"></div>
-    <button class="primary-btn" id="btn1" onclick="next(1)" disabled>Next</button>
-  </div>
-
-  <!-- Step 2 -->
-  <div class="screen" id="screen-2">
-    <div class="steps"><div class="step-dot active"></div><div class="step-dot active"></div><div class="step-dot"></div></div>
-    <div class="step-label">Step 2 of 3</div>
-    <h1>Shaft Bottom NFC Number</h1>
-    <p class="subtitle">Enter the NFC number located at the bottom of the shaft.</p>
-    <input type="text" id="input2" placeholder="Enter NFC number" autocomplete="off" autocapitalize="characters">
-    <div class="spacer"></div>
-    <button class="primary-btn" id="btn2" onclick="next(2)" disabled>Next</button>
-  </div>
-
-  <!-- Step 3 -->
-  <div class="screen" id="screen-3">
-    <div class="steps"><div class="step-dot active"></div><div class="step-dot active"></div><div class="step-dot active"></div></div>
-    <div class="step-label">Step 3 of 3</div>
-    <h1>Box Number</h1>
-    <p class="subtitle">Enter the number printed on the product box.</p>
-    <input type="text" id="input3" placeholder="Enter box number" autocomplete="off" autocapitalize="characters">
-    <div class="spacer"></div>
-    <button class="primary-btn" id="btn3" onclick="verify()" disabled>Verify</button>
-  </div>
-
-  <!-- Checking -->
-  <div class="screen" id="screen-checking">
-    <div class="loader"></div>
-    <p class="checking-text">Checking your numbers&hellip;</p>
-    <p class="error-msg" id="errorMsg">Connection error. Please try again.</p>
-    <div class="spacer"></div>
-    <button class="primary-btn" id="retryBtn" style="display:none" onclick="verify()">Try Again</button>
-  </div>
-
-  <!-- Success -->
-  <div class="screen" id="screen-success">
-    <div class="result-icon ok">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  <div class="card">
+    <!-- Intro -->
+    <div class="screen active" id="screen-intro">
+      <h1>Verify Your GEEZ Product</h1>
+      <p class="subtitle">Check that your GEEZ billiard product is authentic in 3 simple steps.</p>
+      <div class="intro-list">
+        <div class="intro-item"><div class="intro-num">1</div><div>Shaft verification number</div></div>
+        <div class="intro-item"><div class="intro-num">2</div><div>NFC number on the shaft bottom</div></div>
+        <div class="intro-item"><div class="intro-num">3</div><div>Number on the product box</div></div>
+      </div>
+      <div class="spacer"></div>
+      <button class="primary-btn" id="startBtn">Start Verification</button>
     </div>
-    <div class="result-title">Authentic Product</div>
-    <p class="result-text">All 3 numbers matched.<br>This is a genuine GEEZ product.<br>Thank you for choosing GEEZ.</p>
-    <div class="spacer"></div>
-    <button class="primary-btn" onclick="restart()">Done</button>
-  </div>
 
-  <!-- Fail -->
-  <div class="screen" id="screen-fail">
-    <div class="result-icon bad">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <!-- Step 1 -->
+    <div class="screen" id="screen-1">
+      <div class="stepper">
+        <div class="dot active">1</div><div class="connector"></div>
+        <div class="dot">2</div><div class="connector"></div>
+        <div class="dot">3</div>
+      </div>
+      <div class="step-label">Step 1 of 3</div>
+      <h1>Shaft Verification Number</h1>
+      <p class="subtitle">Enter the verification number printed on the shaft.</p>
+      <input type="text" id="input1" placeholder="Enter shaft number" autocomplete="off" autocapitalize="characters">
+      <div class="spacer"></div>
+      <button class="primary-btn" id="btn1" disabled>Next</button>
     </div>
-    <div class="result-title">Not Verified</div>
-    <p class="result-text">The numbers did not match our records.<br>Please check the numbers and try again.<br>If it still fails, this may not be a genuine GEEZ product &mdash; contact us for help.</p>
-    <div class="spacer"></div>
-    <button class="primary-btn" onclick="restart()">Try Again</button>
+
+    <!-- Step 2 -->
+    <div class="screen" id="screen-2">
+      <div class="stepper">
+        <div class="dot done">&#10003;</div><div class="connector done"></div>
+        <div class="dot active">2</div><div class="connector"></div>
+        <div class="dot">3</div>
+      </div>
+      <div class="step-label">Step 2 of 3</div>
+      <h1>Shaft Bottom NFC Number</h1>
+      <p class="subtitle">Enter the NFC number located at the bottom of the shaft.</p>
+      <input type="text" id="input2" placeholder="Enter NFC number" autocomplete="off" autocapitalize="characters">
+      <div class="spacer"></div>
+      <button class="primary-btn" id="btn2" disabled>Next</button>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="screen" id="screen-3">
+      <div class="stepper">
+        <div class="dot done">&#10003;</div><div class="connector done"></div>
+        <div class="dot done">&#10003;</div><div class="connector done"></div>
+        <div class="dot active">3</div>
+      </div>
+      <div class="step-label">Step 3 of 3</div>
+      <h1>Box Number</h1>
+      <p class="subtitle">Enter the number printed on the product box.</p>
+      <input type="text" id="input3" placeholder="Enter box number" autocomplete="off" autocapitalize="characters">
+      <div class="spacer"></div>
+      <button class="primary-btn" id="btn3" disabled>Verify</button>
+    </div>
+
+    <!-- Checking -->
+    <div class="screen" id="screen-checking">
+      <div class="loader"></div>
+      <p class="checking-text">Checking your numbers&hellip;</p>
+      <p class="error-msg" id="errorMsg">Connection error. Please try again.</p>
+      <div class="spacer"></div>
+      <button class="primary-btn" id="retryBtn" style="display:none">Try Again</button>
+    </div>
+
+    <!-- Success -->
+    <div class="screen" id="screen-success">
+      <div class="result-icon ok">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="result-title">Authentic Product</div>
+      <p class="result-text">All 3 numbers matched.<br>This is a genuine GEEZ product.<br>Thank you for choosing GEEZ.</p>
+      <div class="spacer"></div>
+      <button class="primary-btn" id="doneBtn">Done</button>
+    </div>
+
+    <!-- Fail -->
+    <div class="screen" id="screen-fail">
+      <div class="result-icon bad">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+      <div class="result-title">Not Verified</div>
+      <p class="result-text">The numbers did not match our records.<br>Please check the numbers and try again.<br>If it still fails, this may not be a genuine GEEZ product &mdash; contact us for help.</p>
+      <div class="spacer"></div>
+      <button class="primary-btn" id="failBtn">Try Again</button>
+    </div>
   </div>
 </div>
 
 <script>
   // ====================================================================
-  // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BETWEEN THE QUOTES BELOW:
-  const API_URL = "https://script.google.com/macros/s/AKfycbydXc8oJ0Reb7EHuc3IU9ey21RURtda75KAOsco2IP3Tkams1W65dxTmcqRXvB-ZpRc9Q/exec;
+  // YOUR GOOGLE APPS SCRIPT WEB APP URL (keep the quotes on both sides!)
+  var API_URL = "https://script.google.com/macros/s/AKfycbydXc8oJ0Reb7EHuc3IU9ey21RURtda75KAOsco2IP3Tkams1W65dxTmcqRXvB-ZpRc9Q/exec";
   // ====================================================================
 
-  let current = "intro";
-  const order = ["intro", "1", "2", "3"];
+  var current = "intro";
+  var order = ["intro", "1", "2", "3"];
 
   function show(id) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    var screens = document.querySelectorAll(".screen");
+    for (var i = 0; i < screens.length; i++) screens[i].classList.remove("active");
     document.getElementById("screen-" + id).classList.add("active");
     current = id;
-    document.getElementById("backBtn").classList.toggle("show", ["1","2","3"].includes(id));
-    const input = document.querySelector("#screen-" + id + " input");
-    if (input) setTimeout(() => input.focus(), 100);
+    var showBack = (id === "1" || id === "2" || id === "3");
+    document.getElementById("backBtn").classList.toggle("show", showBack);
+    var input = document.querySelector("#screen-" + id + " input");
+    if (input) setTimeout(function () { input.focus(); }, 150);
   }
 
-  function goTo(step) { show(String(step)); }
-
-  function next(step) { show(String(step + 1)); }
-
   function goBack() {
-    const i = order.indexOf(current);
+    var i = order.indexOf(current);
     if (i > 0) show(order[i - 1]);
   }
 
   function restart() {
-    ["input1","input2","input3"].forEach(id => document.getElementById(id).value = "");
-    [1,2,3].forEach(n => document.getElementById("btn" + n).disabled = true);
+    ["input1", "input2", "input3"].forEach(function (id) {
+      document.getElementById(id).value = "";
+    });
+    [1, 2, 3].forEach(function (n) {
+      document.getElementById("btn" + n).disabled = true;
+    });
     show("intro");
   }
 
-  // Enable button only when input has text; Enter key moves forward
-  [1,2,3].forEach(n => {
-    const input = document.getElementById("input" + n);
-    const btn = document.getElementById("btn" + n);
-    input.addEventListener("input", () => { btn.disabled = input.value.trim() === ""; });
-    input.addEventListener("keydown", e => {
-      if (e.key === "Enter" && !btn.disabled) btn.click();
-    });
-  });
-
-  async function verify() {
+  function verify() {
     show("checking");
     document.getElementById("errorMsg").style.display = "none";
     document.getElementById("retryBtn").style.display = "none";
 
-    const clean = v => v.trim().toUpperCase().replace(/\s+/g, "");
-    const s1 = clean(document.getElementById("input1").value);
-    const s2 = clean(document.getElementById("input2").value);
-    const s3 = clean(document.getElementById("input3").value);
+    function clean(v) { return v.trim().toUpperCase().replace(/\s+/g, ""); }
+    var s1 = clean(document.getElementById("input1").value);
+    var s2 = clean(document.getElementById("input2").value);
+    var s3 = clean(document.getElementById("input3").value);
 
-    if (API_URL.indexOf("PASTE_YOUR") === 0) {
-      alert("Setup not finished: paste your Apps Script URL into index.html (API_URL).");
-      show("3");
-      return;
-    }
+    var url = API_URL + "?shaft=" + encodeURIComponent(s1)
+                      + "&nfc=" + encodeURIComponent(s2)
+                      + "&box=" + encodeURIComponent(s3);
 
-    try {
-      const url = API_URL + "?shaft=" + encodeURIComponent(s1)
-                          + "&nfc=" + encodeURIComponent(s2)
-                          + "&box=" + encodeURIComponent(s3);
-      const res = await fetch(url);
-      const data = await res.json();
-      show(data.valid === true ? "success" : "fail");
-    } catch (err) {
-      document.getElementById("errorMsg").style.display = "block";
-      document.getElementById("retryBtn").style.display = "block";
-    }
+    fetch(url)
+      .then(function (res) { return res.json(); })
+      .then(function (data) { show(data.valid === true ? "success" : "fail"); })
+      .catch(function () {
+        document.getElementById("errorMsg").style.display = "block";
+        document.getElementById("retryBtn").style.display = "block";
+      });
   }
+
+  // Wire up all buttons
+  document.getElementById("startBtn").addEventListener("click", function () { show("1"); });
+  document.getElementById("btn1").addEventListener("click", function () { show("2"); });
+  document.getElementById("btn2").addEventListener("click", function () { show("3"); });
+  document.getElementById("btn3").addEventListener("click", verify);
+  document.getElementById("backBtn").addEventListener("click", goBack);
+  document.getElementById("doneBtn").addEventListener("click", restart);
+  document.getElementById("failBtn").addEventListener("click", restart);
+  document.getElementById("retryBtn").addEventListener("click", verify);
+
+  // Enable button only when input has text; Enter moves forward
+  [1, 2, 3].forEach(function (n) {
+    var input = document.getElementById("input" + n);
+    var btn = document.getElementById("btn" + n);
+    input.addEventListener("input", function () {
+      btn.disabled = input.value.trim() === "";
+    });
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && !btn.disabled) btn.click();
+    });
+  });
 </script>
 </body>
 </html>
