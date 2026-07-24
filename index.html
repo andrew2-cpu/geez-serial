@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,6 +54,26 @@
     visibility: hidden;
   }
   .back-btn.show { visibility: visible; }
+  .lang-switch {
+    position: absolute;
+    right: 0;
+    top: 8px;
+    display: flex;
+    background: rgba(255,255,255,.22);
+    border-radius: 999px;
+    padding: 3px;
+  }
+  .lang-switch button {
+    border: none;
+    background: transparent;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 11px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .lang-switch button.on { background: #ffffff; color: var(--accent); }
   .logo-chip {
     background: #1e1e1e;
     border-radius: 16px;
@@ -249,10 +270,14 @@
 <div class="app">
   <div class="top">
     <button class="back-btn" id="backBtn" aria-label="Back">&#8592;</button>
+    <div class="lang-switch">
+      <button id="langEn" class="on">EN</button>
+      <button id="langZh">中文</button>
+    </div>
     <div class="logo-chip"><img class="logo" src="data:image/png;base64,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" alt="GEEZ logo"></div>
     <div class="brand">GEEZ<small>Serial Number Search System</small></div>
   </div>
-
+ 
   <div class="card">
     <!-- Intro -->
     <div class="screen active" id="screen-intro">
@@ -266,7 +291,7 @@
       <div class="spacer"></div>
       <button class="primary-btn" id="startBtn">Start Verification</button>
     </div>
-
+ 
     <!-- Step 1 -->
     <div class="screen" id="screen-1">
       <div class="stepper">
@@ -281,7 +306,7 @@
       <div class="spacer"></div>
       <button class="primary-btn" id="btn1" disabled>Next</button>
     </div>
-
+ 
     <!-- Step 2 -->
     <div class="screen" id="screen-2">
       <div class="stepper">
@@ -296,7 +321,7 @@
       <div class="spacer"></div>
       <button class="primary-btn" id="btn2" disabled>Next</button>
     </div>
-
+ 
     <!-- Step 3 -->
     <div class="screen" id="screen-3">
       <div class="stepper">
@@ -311,7 +336,7 @@
       <div class="spacer"></div>
       <button class="primary-btn" id="btn3" disabled>Verify</button>
     </div>
-
+ 
     <!-- Checking -->
     <div class="screen" id="screen-checking">
       <div class="loader"></div>
@@ -320,7 +345,7 @@
       <div class="spacer"></div>
       <button class="primary-btn" id="retryBtn" style="display:none">Try Again</button>
     </div>
-
+ 
     <!-- Success -->
     <div class="screen" id="screen-success">
       <div class="result-icon ok">
@@ -331,7 +356,7 @@
       <div class="spacer"></div>
       <button class="primary-btn" id="doneBtn">Done</button>
     </div>
-
+ 
     <!-- Fail -->
     <div class="screen" id="screen-fail">
       <div class="result-icon bad">
@@ -344,16 +369,16 @@
     </div>
   </div>
 </div>
-
+ 
 <script>
   // ====================================================================
   // YOUR GOOGLE APPS SCRIPT WEB APP URL (keep the quotes on both sides!)
   var API_URL = "https://script.google.com/macros/s/AKfycbydXc8oJ0Reb7EHuc3IU9ey21RURtda75KAOsco2IP3Tkams1W65dxTmcqRXvB-ZpRc9Q/exec";
   // ====================================================================
-
+ 
   var current = "intro";
   var order = ["intro", "1", "2", "3"];
-
+ 
   function show(id) {
     var screens = document.querySelectorAll(".screen");
     for (var i = 0; i < screens.length; i++) screens[i].classList.remove("active");
@@ -364,12 +389,12 @@
     var input = document.querySelector("#screen-" + id + " input");
     if (input) setTimeout(function () { input.focus(); }, 150);
   }
-
+ 
   function goBack() {
     var i = order.indexOf(current);
     if (i > 0) show(order[i - 1]);
   }
-
+ 
   function restart() {
     ["input1", "input2", "input3"].forEach(function (id) {
       document.getElementById(id).value = "";
@@ -379,21 +404,21 @@
     });
     show("intro");
   }
-
+ 
   function verify() {
     show("checking");
     document.getElementById("errorMsg").style.display = "none";
     document.getElementById("retryBtn").style.display = "none";
-
+ 
     function clean(v) { return v.trim().toUpperCase().replace(/\s+/g, ""); }
     var s1 = clean(document.getElementById("input1").value);
     var s2 = clean(document.getElementById("input2").value);
     var s3 = clean(document.getElementById("input3").value);
-
+ 
     var url = API_URL + "?shaft=" + encodeURIComponent(s1)
                       + "&nfc=" + encodeURIComponent(s2)
                       + "&box=" + encodeURIComponent(s3);
-
+ 
     fetch(url)
       .then(function (res) { return res.json(); })
       .then(function (data) { show(data.valid === true ? "success" : "fail"); })
@@ -402,7 +427,7 @@
         document.getElementById("retryBtn").style.display = "block";
       });
   }
-
+ 
   // Wire up all buttons
   document.getElementById("startBtn").addEventListener("click", function () { show("1"); });
   document.getElementById("btn1").addEventListener("click", function () { show("2"); });
@@ -412,7 +437,7 @@
   document.getElementById("doneBtn").addEventListener("click", restart);
   document.getElementById("failBtn").addEventListener("click", restart);
   document.getElementById("retryBtn").addEventListener("click", verify);
-
+ 
   // Enable button only when input has text; Enter moves forward
   [1, 2, 3].forEach(function (n) {
     var input = document.getElementById("input" + n);
@@ -424,6 +449,124 @@
       if (e.key === "Enter" && !btn.disabled) btn.click();
     });
   });
+ 
+  // ============================ LANGUAGES =============================
+  var STRINGS = {
+    en: {
+      sys: "Serial Number Search System",
+      introTitle: "Verify Your GEEZ Product",
+      introSub: "Check that your GEEZ billiard product is authentic in 3 simple steps.",
+      item1: "Shaft verification number",
+      item2: "NFC number on the shaft bottom",
+      item3: "Number on the product box",
+      start: "Start Verification",
+      step1: "Step 1 of 3", step2: "Step 2 of 3", step3: "Step 3 of 3",
+      h1: "Shaft Verification Number",
+      sub1: "Enter the verification number printed on the shaft.",
+      ph1: "Enter shaft number",
+      h2: "Shaft Bottom NFC Number",
+      sub2: "Enter the NFC number located at the bottom of the shaft.",
+      ph2: "Enter NFC number",
+      h3: "Box Number",
+      sub3: "Enter the number printed on the product box.",
+      ph3: "Enter box number",
+      next: "Next", verifyBtn: "Verify",
+      checking: "Checking your numbers&hellip;",
+      connErr: "Connection error. Please try again.",
+      retry: "Try Again",
+      okTitle: "Authentic Product",
+      okText: "All 3 numbers matched.<br>This is a genuine GEEZ product.<br>Thank you for choosing GEEZ.",
+      done: "Done",
+      badTitle: "Not Verified",
+      badText: "The numbers did not match our records.<br>Please check the numbers and try again.<br>If it still fails, this may not be a genuine GEEZ product &mdash; contact us for help.",
+      tryAgain: "Try Again"
+    },
+    zh: {
+      sys: "序列号查询系统",
+      introTitle: "验证您的 GEEZ 产品",
+      introSub: "只需 3 个简单步骤，即可确认您的 GEEZ 台球产品是否为正品。",
+      item1: "杆身验证码",
+      item2: "杆身底部 NFC 码",
+      item3: "包装盒编号",
+      start: "开始验证",
+      step1: "第 1 步，共 3 步", step2: "第 2 步，共 3 步", step3: "第 3 步，共 3 步",
+      h1: "杆身验证码",
+      sub1: "请输入印在杆身上的验证码。",
+      ph1: "输入杆身验证码",
+      h2: "杆身底部 NFC 码",
+      sub2: "请输入杆身底部的 NFC 码。",
+      ph2: "输入 NFC 码",
+      h3: "包装盒编号",
+      sub3: "请输入印在包装盒上的编号。",
+      ph3: "输入包装盒编号",
+      next: "下一步", verifyBtn: "验证",
+      checking: "正在核对您的编号&hellip;",
+      connErr: "网络错误，请重试。",
+      retry: "重试",
+      okTitle: "正品",
+      okText: "3 个编号全部匹配。<br>这是 GEEZ 正品。<br>感谢您选择 GEEZ。",
+      done: "完成",
+      badTitle: "验证未通过",
+      badText: "编号与我们的记录不符。<br>请检查编号后重试。<br>如果仍然失败，该产品可能不是 GEEZ 正品 &mdash; 请联系我们。",
+      tryAgain: "重试"
+    }
+  };
+ 
+  function setLang(lang) {
+    var t = STRINGS[lang] || STRINGS.en;
+    function put(sel, s) { var el = document.querySelector(sel); if (el) el.innerHTML = s; }
+    put(".brand small", t.sys);
+    put("#screen-intro h1", t.introTitle);
+    put("#screen-intro .subtitle", t.introSub);
+    var items = document.querySelectorAll(".intro-item > div:last-child");
+    if (items.length === 3) {
+      items[0].innerHTML = t.item1;
+      items[1].innerHTML = t.item2;
+      items[2].innerHTML = t.item3;
+    }
+    put("#startBtn", t.start);
+    put("#screen-1 .step-label", t.step1);
+    put("#screen-1 h1", t.h1);
+    put("#screen-1 .subtitle", t.sub1);
+    document.getElementById("input1").placeholder = t.ph1;
+    put("#btn1", t.next);
+    put("#screen-2 .step-label", t.step2);
+    put("#screen-2 h1", t.h2);
+    put("#screen-2 .subtitle", t.sub2);
+    document.getElementById("input2").placeholder = t.ph2;
+    put("#btn2", t.next);
+    put("#screen-3 .step-label", t.step3);
+    put("#screen-3 h1", t.h3);
+    put("#screen-3 .subtitle", t.sub3);
+    document.getElementById("input3").placeholder = t.ph3;
+    put("#btn3", t.verifyBtn);
+    put(".checking-text", t.checking);
+    put("#errorMsg", t.connErr);
+    put("#retryBtn", t.retry);
+    put("#screen-success .result-title", t.okTitle);
+    put("#screen-success .result-text", t.okText);
+    put("#doneBtn", t.done);
+    put("#screen-fail .result-title", t.badTitle);
+    put("#screen-fail .result-text", t.badText);
+    put("#failBtn", t.tryAgain);
+    document.getElementById("langEn").classList.toggle("on", lang === "en");
+    document.getElementById("langZh").classList.toggle("on", lang === "zh");
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+    try { localStorage.setItem("geezLang", lang); } catch (e) {}
+  }
+ 
+  document.getElementById("langEn").addEventListener("click", function () { setLang("en"); });
+  document.getElementById("langZh").addEventListener("click", function () { setLang("zh"); });
+ 
+  // Start in saved language, or Chinese if the phone is set to Chinese
+  var startLang = "en";
+  try {
+    startLang = localStorage.getItem("geezLang") ||
+      ((navigator.language || "").toLowerCase().indexOf("zh") === 0 ? "zh" : "en");
+  } catch (e) {}
+  setLang(startLang);
 </script>
 </body>
 </html>
+ 
+
